@@ -5,7 +5,7 @@
 # software: PyCharm
 
 from django.urls import path
-from .views import ProductViewSet
+from .views import ProductViewSet, UserApi
 
 urlpatterns = [
     path('products', ProductViewSet.as_view({
@@ -16,5 +16,6 @@ urlpatterns = [
         'get': 'retrieve',
         'put': 'update',
         'delete': 'destroy'
-    }))
+    })),
+    path('user', UserApi.as_view())
 ]
