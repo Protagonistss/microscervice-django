@@ -3,8 +3,12 @@
 # author: huangshan
 # datetime: 2021-01-17 02:08
 # software: PyCharm
+import json, pika, os, django
 
-import pika
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "admin.settings")
+django.setup()
+
+from products.models import Product
 
 amqpUlr = "amqps://favhlvqn:LM9kccEJ9RNfPUuolNurqHzPXClFkP-m@orangutan.rmq.cloudamqp.com/favhlvqn"
 
@@ -16,7 +20,11 @@ channel.queue_declare(queue='admin')
 
 def callback(ch, method, properties, body):
     print('Received in admin')
-    print(body)
+    id = json.loads(body)
+    product = Product.objects.get(id=id)
+    product.likes = product.likes + 1
+    product.save()
+    print('Product likes increased')
 
 
 channel.basic_consume(queue='admin', on_message_callback=callback, auto_ack=True)
