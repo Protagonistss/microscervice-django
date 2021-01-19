@@ -2,6 +2,8 @@ version: '3.7'
 services:
   backend:
     container_name: backend
+    environment:
+      AMQPURL: $AMQP_URL
     build:
       context: .
       dockerfile: Dockerfile

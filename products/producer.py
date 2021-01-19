@@ -4,9 +4,9 @@
 # datetime: 2021-01-16 22:26
 # software: PyCharm
 
-import pika, json
+import pika, json, os
 
-amqpUlr = "amqps://favhlvqn:LM9kccEJ9RNfPUuolNurqHzPXClFkP-m@orangutan.rmq.cloudamqp.com/favhlvqn"
+amqpUlr = os.getenv('AMQPURL')
 paramas = pika.URLParameters(amqpUlr)
 connection = pika.BlockingConnection(paramas)
 channel = connection.channel()

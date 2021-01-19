@@ -10,7 +10,7 @@ django.setup()
 
 from products.models import Product
 
-amqpUlr = "amqps://favhlvqn:LM9kccEJ9RNfPUuolNurqHzPXClFkP-m@orangutan.rmq.cloudamqp.com/favhlvqn"
+amqpUlr = os.getenv('AMQPURL')
 
 params = pika.URLParameters(amqpUlr)
 connection = pika.BlockingConnection(params)
